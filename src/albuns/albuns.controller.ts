@@ -1,23 +1,25 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Query, ParseIntPipe } from '@nestjs/common';
 import { AlbunsService } from './albuns.service';
+import { CreateAlbumDto } from 'src/dto/CreateAlbumDto';
+import { QueryFilterDto } from 'src/dto/QueryFilterDto';
 
 @Controller('albuns')
 export class AlbunsController {
     constructor(private readonly albunService: AlbunsService) {}
 
     @Get()
-    findAll() {
-      return this.albunService.findAll();
+    findAll(@Query() queryFilter: QueryFilterDto) {
+      return this.albunService.findAll(queryFilter.filter, queryFilter.page);
     }
   
     @Get(':id')
-    findOne(@Param('id') id: string) {
-      return this.albunService.findOne(+id);
+    findOne(@Param('id', ParseIntPipe) id: number) {
+      return this.albunService.findOne(id);
     }
   
     @Post()
-    create(@Body() body: { name_album: string, album_image: string, userId: string}) {
-      return this.albunService.create(body);
+    create(@Body() createAlbumDto: CreateAlbumDto) {
+      return this.albunService.create(createAlbumDto);
     }
   
     @Put(':id')

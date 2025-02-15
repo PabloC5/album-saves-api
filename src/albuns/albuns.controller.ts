@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, Query, ParseIntPipe, NotFoundException, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Query, ParseIntPipe, NotFoundException, HttpException, HttpStatus, Patch } from '@nestjs/common';
 import { AlbunsService } from './albuns.service';
 import { CreateAlbumDto } from 'src/dto/CreateAlbumDto';
 import { QueryFilterDto } from 'src/dto/QueryFilterDto';
@@ -19,7 +19,7 @@ export class AlbunsController {
   
     @Get(':id')
     findOne(@Param('id', ParseIntPipe) id: number) {
-      if (id != null) {
+      if (id == null) {
         throw new NotFoundException('ID não pode ser null');
       }
 
@@ -32,12 +32,12 @@ export class AlbunsController {
     }
   
     @Put(':id')
-    update(@Param('id') id: number, @Body() createAlbumDto: CreateAlbumDto) {
-      return this.albunService.update(id, createAlbumDto);
+    update(@Param('id') id: number, @Body() update: any) {
+      return this.albunService.update(id, update);
     }
   
     @Delete(':id')
-    remove(@Param('id') id: string) {
-      return this.albunService.remove(+id);
+    remove(@Param('id') id: number) {
+      return this.albunService.remove(id);
     }
 }

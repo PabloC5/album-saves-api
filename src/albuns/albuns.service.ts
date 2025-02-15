@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class AlbunsService {
@@ -23,15 +23,28 @@ export class AlbunsService {
     ]
 
 
-    findAll() {
-        return this.albuns;
+    findAll(filter?: string, page?: number) {
+        let results = this.albuns;
+
+        if (filter) {
+            results = results.filter((album) =>
+                album.name_album.toLowerCase().includes(filter.toLowerCase()),
+            );
+        }
+
+        const pageSize = 5;
+        const start = ((page || 1) - 1) * pageSize;
+
+        return results.slice(start, start + pageSize);
     }
 
     findOne(id: number) {
-        return this.albuns.find(album => album.id === id);
+        const album = this.albuns.find((u) => u.id === id);
+        if (!album) throw new NotFoundException('Album não encontrado.');
+        return album;
     }
 
-    create(album: { name_album: string, album_image: string, userId: string}) {
+    create(album) {
         const newAlbum = {
             id: this.albuns.length + 1,
             ...album,

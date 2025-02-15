@@ -1,11 +1,11 @@
 ## Título ou Nome da Aplicação/API: 
-Catalogo de Filmes
+Organizador de Album
 
 ## Identificação/Autor: 
-Leandro Pires Nunes
+Pablo de Paula Correia
 
 ## Descrição do Projeto: 
-Aplicação para listagem de filmes para a assistir e assistidos.
+Aplicação para Listar seus Albuns favoritos
 
 ## Link para a API em Produção: 
 URL para acessar a API publicada em uma plataforma de hospedagem na nuvem.

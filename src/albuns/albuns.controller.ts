@@ -23,8 +23,8 @@ export class AlbunsController {
     }
   
     @Put(':id')
-    update(@Param('id') id: string, @Body() body: { name_album: string}) {
-      return this.albunService.update(+id, body);
+    update(@Param('id') id: number, @Body() createAlbumDto: CreateAlbumDto) {
+      return this.albunService.update(id, createAlbumDto);
     }
   
     @Delete(':id')

@@ -55,7 +55,7 @@ export class AlbunsService {
         return newAlbum;
     }
 
-    update(id: number, albumUpdates: { name_album: string}) {
+    update(id: number, albumUpdates) {
         const albumIndex = this.albuns.findIndex(album => album.id === id);
         if (albumIndex === -1) {
             return `Album com ID ${id} não encontrado`;
